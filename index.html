@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Backend portfolio for nick_vaz, focused on Java, Spring Boot, distributed systems, APIs, and cloud infrastructure."
+    />
+    <title>nick_vaz | Backend Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="nick_vaz home">
+        <img class="brand-mark" src="images/tamaki.jpg" alt="" aria-hidden="true" />
+        <span>nick_vaz</span>
+      </a>
+
+      <div class="header-socials" aria-label="Social links">
+        <a href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer" aria-label="GitHub: NicoSinMah">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18a2.65 2.65 0 0 0-1.1-1.45c-.9-.61.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1.03 2.13 2.13 0 0 0 2.91.83 2.14 2.14 0 0 1 .63-1.34c-2.22-.25-4.56-1.11-4.56-4.94a3.87 3.87 0 0 1 1.03-2.69 3.6 3.6 0 0 1 .1-2.65s.84-.27 2.75 1.03a9.48 9.48 0 0 1 5 0c1.9-1.3 2.74-1.03 2.74-1.03.55 1.38.2 2.4.1 2.65a3.86 3.86 0 0 1 1.03 2.69c0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/vaz-nico" target="_blank" rel="noreferrer" aria-label="LinkedIn: vaz-nico">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.94 8.98H3.83V20h3.11V8.98ZM5.39 4a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Zm14.78 9.92c0-3-1.6-4.4-3.74-4.4a3.2 3.2 0 0 0-2.9 1.6h-.04V8.98h-2.98V20h3.11v-5.45c0-1.44.27-2.83 2.05-2.83 1.76 0 1.78 1.64 1.78 2.92V20h3.11l-.39-6.08Z" />
+          </svg>
+        </a>
+        <a href="https://discord.com/users/338345858988769280" target="_blank" rel="noreferrer" aria-label="Discord: nick_vaz">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M19.54 5.34A16.9 16.9 0 0 0 15.36 4l-.2.4c1.48.36 2.17.88 2.17.88a13.9 13.9 0 0 0-6.65-.68 12.57 12.57 0 0 0-4.01.68s.72-.54 2.29-.9L8.8 4a16.9 16.9 0 0 0-4.22 1.34S2.42 8.45 2 14.57c2.18 2.52 5.48 2.43 5.48 2.43l.7-.95a4.48 4.48 0 0 1-2.19-1.46l.35.22c1.43.8 2.88 1.12 4.1 1.23a14.8 14.8 0 0 0 3.52-.02 8.53 8.53 0 0 0 3.76-1.43 4.56 4.56 0 0 1-2.27 1.49l.67.92s3.32.08 5.5-2.43c-.42-6.12-2.08-9.23-2.08-9.23ZM8.8 13.8c-.85 0-1.55-.78-1.55-1.74s.68-1.74 1.55-1.74c.86 0 1.56.78 1.55 1.74 0 .96-.69 1.74-1.55 1.74Zm5.56 0c-.85 0-1.55-.78-1.55-1.74s.68-1.74 1.55-1.74c.86 0 1.56.78 1.55 1.74 0 .96-.69 1.74-1.55 1.74Z" />
+          </svg>
+        </a>
+        <a href="https://steamcommunity.com/id/nick_vaz/" target="_blank" rel="noreferrer" aria-label="Steam: nick_vaz">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a10 10 0 0 0-9.87 11.6l5.38 2.22a2.8 2.8 0 0 0 5.58.23l3.4-2.43A3.76 3.76 0 1 0 14.1 9.9l-2.45 3.52a2.76 2.76 0 0 0-1.7.1l-7.8-3.22A10 10 0 1 1 12 22 10 10 0 0 1 2.13 13.6L7.3 15.75a2.8 2.8 0 0 0 5.46.58 2.78 2.78 0 0 1-5.12-2.16L2.4 12A9.99 9.99 0 0 0 12 22 10 10 0 0 0 12 2Zm4.48 7.01a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4Zm0 .55a1.65 1.65 0 1 0 0 3.3 1.65 1.65 0 0 0 0-3.3Z" />
+          </svg>
+        </a>
+      </div>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Backend portfolio</p>
+          <h1>nick_vaz</h1>
+          <p class="hero-text">
+            Java backend developer focused on microservices, APIs,
+            distributed systems, and production-ready cloud infrastructure.
+          </p>
+
+          <div class="hero-actions" aria-label="Profile links">
+            <a class="button primary" href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <a class="button secondary" href="https://www.linkedin.com/in/vaz-nico" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="section-heading">
+          <p class="eyebrow">Selected work</p>
+          <h2>Project examples for your CV</h2>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-topline">
+              <span class="status-dot"></span>
+              <span>Java Microservices</span>
+            </div>
+            <h3>Bank management system</h3>
+            <p>
+              Multi-repository banking backend with REST APIs, service
+              discovery, gateway routing, containerized services, and
+              Kubernetes deployment manifests.
+            </p>
+            <div class="tag-row">
+              <span>Java</span>
+              <span>Spring Boot</span>
+              <span>APIs</span>
+              <span>Kubernetes</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-topline">
+              <span class="status-dot blue"></span>
+              <span>Java CRUD</span>
+            </div>
+            <h3>Supermarket management system</h3>
+            <p>
+              Inventory and sales management application with structured CRUD
+              flows, relational persistence, backend validation, and organized
+              data access.
+            </p>
+            <div class="tag-row">
+              <span>Java</span>
+              <span>Spring Data</span>
+              <span>JPA</span>
+              <span>MySQL</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-topline">
+              <span class="status-dot amber"></span>
+              <span>Distributed Systems</span>
+            </div>
+            <h3>Distributed chat application</h3>
+            <p>
+              Distributed chat architecture using OTP processes, inter-node
+              communication, supervised services, and reliable message routing
+              across a node cluster.
+            </p>
+            <div class="tag-row">
+              <span>Elixir</span>
+              <span>OTP</span>
+              <span>GenServer</span>
+              <span>ExUnit</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split-section" id="skills">
+        <div class="section-heading">
+          <p class="eyebrow">Profile</p>
+          <h2>Personal table</h2>
+        </div>
+
+        <table class="profile-table">
+          <tbody>
+            <tr>
+              <th scope="row">Languages</th>
+              <td>Spanish native, English intermediate, Japanese beginner.</td>
+            </tr>
+            <tr>
+              <th scope="row">Psychology interests</th>
+              <td>Human behavior, cognition, motivation, personality, and how people make decisions.</td>
+            </tr>
+            <tr>
+              <th scope="row">Programming interests</th>
+              <td>Backend systems, distributed architectures, clean APIs, automation, and scalable infrastructure.</td>
+            </tr>
+            <tr>
+              <th scope="row">Favorite technologies</th>
+              <td>Java, Spring Boot, Spring Cloud, Elixir, Docker, Kubernetes, PostgreSQL, MySQL, Gradle, and Git.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="contact-band" id="contact">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Connect with nick_vaz</h2>
+        </div>
+        <form class="contact-form" action="mailto:nicovalmu2003@gmail.com" method="post" enctype="text/plain">
+          <label>
+            Name
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            Subject
+            <input type="text" name="subject" value="Portfolio contact" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button class="button primary" type="submit">Send message</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Copyright 2026 nick_vaz. All rights reserved.</span>
+      <span>Miau</span>
+    </footer>
+  </body>
+</html>
