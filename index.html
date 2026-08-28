@@ -16,7 +16,6 @@
         <img class="brand-mark" src="images/tamaki.jpg" alt="" aria-hidden="true" />
         <span>nick_vaz</span>
       </a>
-
       <div class="header-socials" aria-label="Social links">
         <a href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer" aria-label="GitHub: NicoSinMah">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -39,24 +38,21 @@
           </svg>
         </a>
       </div>
-
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="#work">Work</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
-
     <main>
       <section class="hero" id="home">
         <div class="hero-copy">
           <p class="eyebrow">Backend portfolio</p>
           <h1>nick_vaz</h1>
           <p class="hero-text">
-            Java backend developer focused on microservices, APIs,
-            distributed systems, and production-ready cloud infrastructure.
+            22 years old, Systems and Computing Engeneer stundent.
+            Back-end developer looking for job.
           </p>
-
           <div class="hero-actions" aria-label="Profile links">
             <a class="button primary" href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer">
               GitHub
@@ -66,19 +62,31 @@
             </a>
           </div>
         </div>
+
+        <aside class="hero-music" aria-label="Favorite tracks">
+          <div class="hero-music-head">
+            <span class="pulse" aria-hidden="true"></span>
+            <span>Currently on repeat</span>
+          </div>
+          <div class="track-list" id="trackList">
+            <!-- tracks are injected by script.js from the favoriteTracks array -->
+          </div>
+        </aside>
       </section>
 
       <section class="section" id="work">
         <div class="section-heading">
           <p class="eyebrow">Selected work</p>
-          <h2>Project examples for your CV</h2>
+          <h2>Projects to explain my knowledge</h2>
         </div>
-
         <div class="project-grid">
-          <article class="project-card">
+          <article class="project-card" style="--accent: var(--cyan);">
             <div class="project-topline">
-              <span class="status-dot"></span>
-              <span>Java Microservices</span>
+              <span class="project-badge">
+                <span class="project-glyph" aria-hidden="true">🏦</span>
+                Java Microservices
+              </span>
+              <span class="project-index">01</span>
             </div>
             <h3>Bank management system</h3>
             <p>
@@ -92,12 +100,19 @@
               <span>APIs</span>
               <span>Kubernetes</span>
             </div>
+            <a class="project-link" href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer">
+              View on GitHub
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" style="--accent: var(--purple);">
             <div class="project-topline">
-              <span class="status-dot blue"></span>
-              <span>Java CRUD</span>
+              <span class="project-badge">
+                <span class="project-glyph" aria-hidden="true">🛒</span>
+                Java CRUD
+              </span>
+              <span class="project-index">02</span>
             </div>
             <h3>Supermarket management system</h3>
             <p>
@@ -109,14 +124,21 @@
               <span>Java</span>
               <span>Spring Data</span>
               <span>JPA</span>
-              <span>MySQL</span>
+              <span>Payments</span>
             </div>
+            <a class="project-link" href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer">
+              View on GitHub
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" style="--accent: var(--pink);">
             <div class="project-topline">
-              <span class="status-dot amber"></span>
-              <span>Distributed Systems</span>
+              <span class="project-badge">
+                <span class="project-glyph" aria-hidden="true">💬</span>
+                Distributed Systems
+              </span>
+              <span class="project-index">03</span>
             </div>
             <h3>Distributed chat application</h3>
             <p>
@@ -130,6 +152,10 @@
               <span>GenServer</span>
               <span>ExUnit</span>
             </div>
+            <a class="project-link" href="https://github.com/NicoSinMah" target="_blank" rel="noreferrer">
+              View on GitHub
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </article>
         </div>
       </section>
@@ -140,26 +166,53 @@
           <h2>Personal table</h2>
         </div>
 
-        <table class="profile-table">
-          <tbody>
-            <tr>
-              <th scope="row">Languages</th>
-              <td>Spanish native, English intermediate, Japanese beginner.</td>
-            </tr>
-            <tr>
-              <th scope="row">Psychology interests</th>
-              <td>Human behavior, cognition, motivation, personality, and how people make decisions.</td>
-            </tr>
-            <tr>
-              <th scope="row">Programming interests</th>
-              <td>Backend systems, distributed architectures, clean APIs, automation, and scalable infrastructure.</td>
-            </tr>
-            <tr>
-              <th scope="row">Favorite technologies</th>
-              <td>Java, Spring Boot, Spring Cloud, Elixir, Docker, Kubernetes, PostgreSQL, MySQL, Gradle, and Git.</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="info-panels" id="infoPanels">
+          <button type="button" class="info-card" style="--accent: var(--cyan);" aria-expanded="false">
+            <div class="info-card-head">
+              <span class="info-icon" aria-hidden="true">🌐</span>
+              <h3>Languages</h3>
+              <span class="info-toggle" aria-hidden="true">+</span>
+            </div>
+            <p class="info-teaser">Spanish, English, Japanese and Korean.</p>
+            <div class="info-full">
+              <p>Spanish Native, English Advanced, Japanese N4 (Pre-Intermediate), Korean Beginner.</p>
+            </div>
+          </button>
+
+          <button type="button" class="info-card" style="--accent: var(--purple);" aria-expanded="false">
+            <div class="info-card-head">
+              <span class="info-icon" aria-hidden="true">🧠</span>
+              <h3>Personal interests</h3>
+              <span class="info-toggle" aria-hidden="true">+</span>
+            </div>
+            <p class="info-teaser">Psychology, behavior, human patterns.</p>
+            <div class="info-full">
+              <p>Disorders, behaviors, thinking about how the past concludes in the present and affects the future.</p>
+            </div>
+          </button>
+
+          <button type="button" class="info-card" style="--accent: var(--pink);" aria-expanded="false">
+            <div class="info-card-head">
+              <span class="info-icon" aria-hidden="true">💻</span>
+              <h3>Programming</h3>
+              <span class="info-toggle" aria-hidden="true">+</span>
+            </div>
+            <p class="info-teaser">Backend, microservices, distributed systems.</p>
+            <div class="info-full">
+              <p>Backend systems, microservices, testing, distributed architectures, automation, and scalable infrastructure.</p>
+              <div class="tag-row">
+                <span>Java</span>
+                <span>Spring</span>
+                <span>Elixir</span>
+                <span>Docker</span>
+                <span>Kubernetes</span>
+                <span>SQL</span>
+                <span>TypeScript</span>
+              </div>
+            </div>
+          </button>
+        </div>
+        <p class="info-hint">Click a card to expand it, click again to go back.</p>
       </section>
 
       <section class="contact-band" id="contact">
@@ -188,10 +241,10 @@
         </form>
       </section>
     </main>
-
     <footer class="site-footer">
       <span>Copyright 2026 nick_vaz. All rights reserved.</span>
       <span>Miau</span>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
