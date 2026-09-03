@@ -424,6 +424,7 @@ h1 {
   position: relative;
   flex: 0 0 320px;
   width: 320px;
+  margin-right: -150px;
   padding: 20px;
   border: 1px solid rgba(145, 170, 255, 0.2);
   border-radius: 14px;
@@ -757,7 +758,7 @@ a.track {
 .info-panels {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 0;
 }
 
 .info-card {
@@ -767,7 +768,8 @@ a.track {
   min-height: 220px;
   padding: 24px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-right: none;
+  border-radius: 0;
   color: inherit;
   text-align: left;
   background: linear-gradient(145deg, rgba(13, 21, 51, 0.86), rgba(5, 9, 24, 0.94));
@@ -776,6 +778,25 @@ a.track {
   cursor: pointer;
   font: inherit;
   transition: transform 220ms ease, border-color 220ms ease, grid-column 260ms ease;
+}
+
+.info-card:last-child {
+  border-right: 1px solid var(--border);
+}
+
+.info-card:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.info-card:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.info-card.is-active {
+  border-right: 1px solid var(--border);
+  border-radius: 10px;
 }
 
 .info-card:hover {
@@ -941,6 +962,7 @@ a.track {
   .hero-music {
     width: 100%;
     flex: none;
+    margin-right: 0;
     transform: none;
   }
 }
@@ -1006,8 +1028,28 @@ a.track {
     grid-template-columns: 1fr;
   }
 
+  .info-card {
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+  }
+
+  .info-card:first-child {
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .info-card:last-child {
+    border-radius: 0;
+    border-bottom: 1px solid var(--border);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
   .info-card.is-active {
     grid-column: auto;
+    border-radius: 10px;
+    border-bottom: 1px solid var(--border);
   }
 
   .hero {
