@@ -710,6 +710,7 @@ a.track {
 .tag-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   margin-top: 22px;
 }
@@ -765,8 +766,8 @@ a.track {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 220px;
-  padding: 24px;
+  min-height: 250px;
+  padding: 28px;
   border: 1px solid var(--border);
   border-right: none;
   border-radius: 0;

@@ -194,11 +194,13 @@ function renderActivityCard(id, data) {
   `;
 }
 
+const ACTIVITY_ORDER = ["ytmusic", "discord"];
+
 function renderActivityPanel() {
   const panel = document.getElementById("activityPanel");
   if (!panel) return;
 
-  const ids = new Set([...Object.keys(activityState), ...Object.keys(RESERVED_ACTIVITIES)]);
+  const ids = new Set([...ACTIVITY_ORDER, ...Object.keys(activityState), ...Object.keys(RESERVED_ACTIVITIES)]);
   panel.innerHTML = Array.from(ids)
     .map((id) => renderActivityCard(id, activityState[id]))
     .join("");
