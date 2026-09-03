@@ -178,14 +178,18 @@ function renderActivityCard(id, data) {
     ? `<span class="activity-status-dot${data.statusPulse ? " is-pulsing" : ""}" style="--status-color: ${data.statusColor};"></span>`
     : "";
 
+  const labelIcon = data.paused
+    ? `<span class="pause-icon" aria-hidden="true">⏸</span>`
+    : `<span class="pulse" aria-hidden="true"></span>`;
+
   return `
-    <div class="activity-card" data-activity="${id}" style="${data.accent ? `--accent: ${data.accent};` : ""}">
+    <div class="activity-card${data.paused ? " is-paused" : ""}" data-activity="${id}" style="${data.accent ? `--accent: ${data.accent};` : ""}">
       <div class="activity-card-avatar">
         ${avatar}
         ${statusDot}
       </div>
       <div class="activity-card-body">
-        <div class="activity-card-label"><span class="pulse" aria-hidden="true"></span>${data.label}</div>
+        <div class="activity-card-label">${labelIcon}${data.label}</div>
         <div class="activity-card-title">${data.title}</div>
         ${data.subtitle ? `<div class="activity-card-subtitle">${data.subtitle}</div>` : ""}
         ${progress}
@@ -280,7 +284,14 @@ function watchPresenceRow(table, id, onRecord) {
 }
 
 function updateYtMusicUI(record) {
-  if (record && record.is_playing && record.title && record.title !== 'No songs currently') {
+  const hasTrack = record && record.title && record.title !== 'No songs currently';
+
+  if (!hasTrack) {
+    window.activityFeed.clear('ytmusic');
+    return;
+  }
+
+  if (record.is_playing) {
     window.activityFeed.set('ytmusic', {
       label: record.label || 'Listening on YouTube Music',
       title: record.title,
@@ -289,7 +300,16 @@ function updateYtMusicUI(record) {
       accent: record.accent || 'var(--cyan)',
     });
   } else {
-    window.activityFeed.clear('ytmusic');
+    // A track is loaded but playback is paused — keep the card and its
+    // track info, just mark it as paused instead of hiding it.
+    window.activityFeed.set('ytmusic', {
+      label: 'Paused on YouTube Music',
+      title: record.title,
+      subtitle: record.subtitle,
+      cover: record.cover,
+      accent: record.accent || 'var(--cyan)',
+      paused: true,
+    });
   }
 }
 
@@ -304,12 +324,17 @@ function updateDiscordUI(record) {
   const status = record?.status || "offline";
   const meta = DISCORD_STATUS_META[status] || DISCORD_STATUS_META.offline;
   const isActive = status !== "offline";
+  const hasActivity = isActive && !!record?.activity_name;
 
   window.activityFeed.set("discord", {
     label: `Discord · ${meta.label}`,
-    title: (isActive && record.activity_name) || meta.label,
-    subtitle: isActive ? record.activity_details || undefined : "Not on Discord right now",
-    cover: "images/tamaki-bn.jpg",
+    title: hasActivity ? record.activity_name : meta.label,
+    subtitle: isActive
+      ? (hasActivity ? record.activity_details || undefined : undefined)
+      : "Not on Discord right now",
+    // Show the game/app's own artwork while one is open; otherwise fall
+    // back to the Discord profile picture, then to the local icon.
+    cover: (hasActivity && record.large_image_url) || record?.avatar_url || "images/tamaki-bn.jpg",
     accent: meta.color,
     statusColor: meta.color,
     statusPulse: meta.pulse,
