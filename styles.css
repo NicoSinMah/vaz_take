@@ -173,7 +173,7 @@ a {
 /* ---------- Hero ---------- */
 .hero {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 3rem;
   width: min(1160px, calc(100% - 32px));
@@ -382,7 +382,6 @@ h1 {
   position: relative;
   flex: 0 0 320px;
   width: 320px;
-  margin-top: 40px;
   padding: 20px;
   border: 1px solid rgba(145, 170, 255, 0.2);
   border-radius: 14px;
@@ -900,7 +899,6 @@ a.track {
   .hero-music {
     width: 100%;
     flex: none;
-    margin-top: 0;
     transform: none;
   }
 }
