@@ -216,6 +216,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // are gated by RLS policies on the Supabase project, not by
 // secrecy of this key.
 // ---------------------------------------------------------------
+const SUPABASE_URL = 'https://vabsmgzsorzpwxysyqdg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhYnNtZ3pzb3J6cHd4eXN5cWRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNzkyNzgsImV4cCI6MjEwMzk1NTI3OH0.20nuugPe0he2lSKyWfG8ZV80Ve-9t3_OAFQ5Bc-T6oI';
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Poll interval used as a fallback in case the Realtime WebSocket
@@ -294,7 +297,7 @@ function updateDiscordUI(record) {
     label: `Discord · ${meta.label}`,
     title: (isActive && record.activity_name) || meta.label,
     subtitle: isActive ? record.activity_details || undefined : "Not on Discord right now",
-    cover: "./images/tamaki-bn.jpg",
+    cover: "images/tamaki-bn.jpg",
     accent: meta.color,
     statusColor: meta.color,
     statusPulse: meta.pulse,
