@@ -231,7 +231,8 @@ h1 {
 /* ---------- Live status / activity panel ---------- */
 .activity-panel {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
   max-width: 480px;
   margin-bottom: 28px;
@@ -243,6 +244,8 @@ h1 {
   grid-template-columns: 44px minmax(0, 1fr);
   align-items: center;
   gap: 13px;
+  flex: 1 1 210px;
+  min-width: 0;
   padding: 11px 14px;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -263,6 +266,47 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(140deg, color-mix(in srgb, var(--accent, var(--cyan)) 28%, transparent), color-mix(in srgb, var(--accent, var(--purple)) 22%, transparent));
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.activity-card-avatar {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+.activity-card-cover-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.activity-status-dot {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--status-color, var(--muted));
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-color, var(--muted)) 55%, transparent);
+}
+
+.activity-status-dot.is-pulsing {
+  animation: status-pulse 2.2s ease-out infinite;
+}
+
+@keyframes status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-color, var(--muted)) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--status-color, var(--muted)) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-color, var(--muted)) 0%, transparent);
+  }
 }
 
 .activity-card-body {

@@ -116,12 +116,23 @@ function setupInfoPanels() {
 const RESERVED_ACTIVITIES = {
   discord: {
     icon: "🎮",
-    label: "Discord Rich Presence",
-    subtitle: "Coming soon",
+    label: "Discord",
+    subtitle: "Waiting for status…",
   },
 };
 
 const activityState = {};
+
+// Swaps a broken/missing cover image for an emoji fallback tile,
+// keeping the card's layout intact either way.
+function handleAvatarError(imgEl, icon) {
+  const span = document.createElement("span");
+  span.className = "activity-card-cover activity-card-cover-icon";
+  span.setAttribute("aria-hidden", "true");
+  span.textContent = icon || "✦";
+  imgEl.replaceWith(span);
+}
+window.handleAvatarError = handleAvatarError;
 
 function renderActivityCard(id, data) {
   if (!data) {
@@ -129,7 +140,9 @@ function renderActivityCard(id, data) {
     if (!reserved) return "";
     return `
       <div class="activity-card is-ghost" data-activity="${id}">
-        <span class="activity-card-cover" aria-hidden="true">${reserved.icon}</span>
+        <div class="activity-card-avatar">
+          <span class="activity-card-cover activity-card-cover-icon" aria-hidden="true">${reserved.icon}</span>
+        </div>
         <div class="activity-card-body">
           <div class="activity-card-label"><span class="pulse" aria-hidden="true"></span>${reserved.label}</div>
           <div class="activity-card-subtitle">${reserved.subtitle}</div>
@@ -146,10 +159,21 @@ function renderActivityCard(id, data) {
         )}%"></div></div>`
       : "";
 
+  const avatar = data.cover
+    ? `<img class="activity-card-cover" src="${data.cover}" alt=""
+           onerror="handleAvatarError(this, '${(data.icon || "✦").replace(/'/g, "&#39;")}')" />`
+    : `<span class="activity-card-cover activity-card-cover-icon" aria-hidden="true">${data.icon || "✦"}</span>`;
+
+  const statusDot = data.statusColor
+    ? `<span class="activity-status-dot${data.statusPulse ? " is-pulsing" : ""}" style="--status-color: ${data.statusColor};"></span>`
+    : "";
+
   return `
     <div class="activity-card" data-activity="${id}" style="${data.accent ? `--accent: ${data.accent};` : ""}">
-      <img class="activity-card-cover" src="${data.cover || ""}" alt=""
-           onerror="this.removeAttribute('src');" />
+      <div class="activity-card-avatar">
+        ${avatar}
+        ${statusDot}
+      </div>
       <div class="activity-card-body">
         <div class="activity-card-label"><span class="pulse" aria-hidden="true"></span>${data.label}</div>
         <div class="activity-card-title">${data.title}</div>
@@ -192,8 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // are gated by RLS policies on the Supabase project, not by
 // secrecy of this key.
 // ---------------------------------------------------------------
-const SUPABASE_URL = 'https://vabsmgzsorzpwxysyqdg.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhYnNtZ3pzb3J6cHd4eXN5cWRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNzkyNzgsImV4cCI6MjEwMzk1NTI3OH0.20nuugPe0he2lSKyWfG8ZV80Ve-9t3_OAFQ5Bc-T6oI';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Poll interval used as a fallback in case the Realtime WebSocket
@@ -256,18 +278,27 @@ function updateYtMusicUI(record) {
   }
 }
 
+const DISCORD_STATUS_META = {
+  online: { label: "Online", color: "var(--green)", pulse: true },
+  idle: { label: "Idle", color: "#ffcf6e", pulse: false },
+  dnd: { label: "Do Not Disturb", color: "#ff5c7a", pulse: false },
+  offline: { label: "Offline", color: "var(--muted)", pulse: false },
+};
+
 function updateDiscordUI(record) {
-  if (record && record.status && record.status !== 'offline') {
-    window.activityFeed.set('discord', {
-      label: 'Discord Rich Presence',
-      title: record.activity_name || record.status,
-      subtitle: record.activity_details || record.status,
-      cover: record.large_image_url,
-      accent: record.status === 'dnd' ? 'var(--pink)' : 'var(--purple)',
-    });
-  } else {
-    window.activityFeed.clear('discord');
-  }
+  const status = record?.status || "offline";
+  const meta = DISCORD_STATUS_META[status] || DISCORD_STATUS_META.offline;
+  const isActive = status !== "offline";
+
+  window.activityFeed.set("discord", {
+    label: `Discord · ${meta.label}`,
+    title: (isActive && record.activity_name) || meta.label,
+    subtitle: isActive ? record.activity_details || undefined : "Not on Discord right now",
+    cover: "./images/tamaki-bn.jpg",
+    accent: meta.color,
+    statusColor: meta.color,
+    statusPulse: meta.pulse,
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
