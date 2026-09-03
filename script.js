@@ -115,7 +115,7 @@ function setupInfoPanels() {
 // ---------------------------------------------------------------
 const RESERVED_ACTIVITIES = {
   discord: {
-    icon: "🎮",
+    icon: "images/tamaki-bn.jpg",
     label: "Discord",
     subtitle: "Waiting for status…",
   },
