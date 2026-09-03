@@ -893,6 +893,33 @@ a.track {
   display: none;
 }
 
+.info-dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.info-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 200ms ease, width 200ms ease;
+}
+
+.info-dot.is-active {
+  width: 20px;
+  background: var(--accent, var(--cyan));
+}
+
+.info-hint-mobile {
+  display: none;
+}
+
 .info-hint {
   margin-top: 10px;
   color: var(--muted);
@@ -1042,31 +1069,50 @@ a.track {
   }
 
   .info-panels {
-    grid-template-columns: 1fr;
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    margin: 0 -4px;
+    padding: 4px 4px 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .info-panels::-webkit-scrollbar {
+    display: none;
   }
 
   .info-card {
-    border-right: 1px solid var(--border);
-    border-bottom: none;
-  }
-
-  .info-card:first-child {
-    border-radius: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-
-  .info-card:last-child {
-    border-radius: 0;
-    border-bottom: 1px solid var(--border);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    flex: 0 0 84%;
+    scroll-snap-align: center;
+    border-radius: 10px;
+    border: 1px solid var(--border);
   }
 
   .info-card.is-active {
+    flex: 0 0 84%;
     grid-column: auto;
     border-radius: 10px;
-    border-bottom: 1px solid var(--border);
+  }
+
+  /* Unlike the desktop accordion, keep every card in the DOM flow so
+     the carousel still has slides to swipe between while one is expanded. */
+  .info-panels.has-active .info-card:not(.is-active) {
+    display: flex;
+  }
+
+  .info-dots {
+    display: flex;
+  }
+
+  .info-hint-desktop {
+    display: none;
+  }
+
+  .info-hint-mobile {
+    display: block;
   }
 
   .hero {

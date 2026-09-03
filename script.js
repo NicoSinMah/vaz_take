@@ -71,6 +71,55 @@ function setupInfoPanels() {
 
   const cards = Array.from(wrap.querySelectorAll(".info-card"));
 
+  // --- Mobile carousel dots -------------------------------------
+  // Desktop ignores these visually (display: none via CSS) but they
+  // stay wired up so the same code works once the layout switches
+  // to the horizontal snap-scroll carousel at 820px.
+  const dotsWrap = document.getElementById("infoDots");
+  const dots = [];
+
+  if (dotsWrap) {
+    dotsWrap.innerHTML = cards
+      .map((_, i) => `<button type="button" class="info-dot" aria-label="Go to card ${i + 1}"></button>`)
+      .join("");
+    dots.push(...dotsWrap.querySelectorAll(".info-dot"));
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        cards[i].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      });
+    });
+  }
+
+  function setActiveDot(index) {
+    dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+  }
+
+  // Figures out which card is centered in the carousel as the user
+  // swipes, so the dot indicator tracks the scroll position.
+  let scrollTimeout;
+  wrap.addEventListener("scroll", () => {
+    if (!dots.length) return;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const wrapRect = wrap.getBoundingClientRect();
+      const center = wrapRect.left + wrapRect.width / 2;
+      let closest = 0;
+      let closestDist = Infinity;
+      cards.forEach((card, i) => {
+        const rect = card.getBoundingClientRect();
+        const dist = Math.abs(rect.left + rect.width / 2 - center);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      setActiveDot(closest);
+    }, 80);
+  });
+  setActiveDot(0);
+
+  // --- Expand / collapse (desktop accordion + mobile carousel) ---
   cards.forEach((card) => {
     card.addEventListener("click", () => {
       const alreadyActive = card.classList.contains("is-active");
@@ -81,6 +130,9 @@ function setupInfoPanels() {
         card.classList.add("is-active");
         wrap.classList.add("has-active");
         card.setAttribute("aria-expanded", "true");
+        // On the mobile carousel this re-centers the card that just
+        // grew taller; on desktop the scroll container doesn't move.
+        card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
       } else {
         wrap.classList.remove("has-active");
       }
