@@ -114,8 +114,14 @@ function setupInfoPanels() {
 // wired up yet.
 // ---------------------------------------------------------------
 const RESERVED_ACTIVITIES = {
+  ytmusic: {
+    icon: "🎵",
+    label: "YouTube Music",
+    subtitle: "Nothing playing right now…",
+  },
   discord: {
-    icon: "images/tamaki-bn.jpg",
+    cover: "images/tamaki-bn.jpg",
+    icon: "🎮",
     label: "Discord",
     subtitle: "Waiting for status…",
   },
@@ -138,10 +144,14 @@ function renderActivityCard(id, data) {
   if (!data) {
     const reserved = RESERVED_ACTIVITIES[id];
     if (!reserved) return "";
+    const ghostAvatar = reserved.cover
+      ? `<img class="activity-card-cover" src="${reserved.cover}" alt=""
+             onerror="handleAvatarError(this, '${(reserved.icon || "✦").replace(/'/g, "&#39;")}')" />`
+      : `<span class="activity-card-cover activity-card-cover-icon" aria-hidden="true">${reserved.icon || "✦"}</span>`;
     return `
       <div class="activity-card is-ghost" data-activity="${id}">
         <div class="activity-card-avatar">
-          <span class="activity-card-cover activity-card-cover-icon" aria-hidden="true">${reserved.icon}</span>
+          ${ghostAvatar}
         </div>
         <div class="activity-card-body">
           <div class="activity-card-label"><span class="pulse" aria-hidden="true"></span>${reserved.label}</div>

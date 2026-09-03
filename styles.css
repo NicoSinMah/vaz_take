@@ -230,12 +230,11 @@ h1 {
 
 /* ---------- Live status / activity panel ---------- */
 .activity-panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  max-width: 600px;
-  margin-bottom: 28px;
+  width: calc(100% + 40px);
+  margin: 0 -20px 28px;
 }
 
 .activity-card {
@@ -244,7 +243,6 @@ h1 {
   grid-template-columns: 44px minmax(0, 1fr);
   align-items: center;
   gap: 13px;
-  flex: 1 1 260px;
   min-width: 0;
   padding: 11px 14px;
   border: 1px solid var(--border);
@@ -1033,5 +1031,11 @@ a.track {
 
   .contact-form .button {
     width: 100%;
+  }
+
+  .activity-panel {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin: 0 0 28px;
   }
 }
