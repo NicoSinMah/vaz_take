@@ -218,6 +218,7 @@
           name="contact"
           method="POST"
           data-netlify="true"
+          data-netlify-recaptcha="true"
           data-netlify-honeypot="bot-field"
         >
           <input type="hidden" name="form-name" value="contact" />
@@ -245,6 +246,7 @@
             Message
             <textarea name="message" rows="5" required></textarea>
           </label>
+          <div class="contact-recaptcha" data-netlify-recaptcha="true"></div>
           <button class="button primary" type="submit">Send message</button>
           <p class="contact-status" id="contactStatus" aria-live="polite"></p>
         </form>

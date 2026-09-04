@@ -986,6 +986,14 @@ a.track {
   cursor: pointer;
 }
 
+.contact-recaptcha {
+  margin: 2px 0;
+}
+
+.contact-recaptcha:empty {
+  display: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
