@@ -1,7 +1,0 @@
-node_modules/
-.env
-discord-presence-bot/node_modules/
-discord-presence-bot/.env
-.netlify/
-.codex/
-.agents/
