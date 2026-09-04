@@ -382,6 +382,18 @@ function setupContactForm() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+    // The reCAPTCHA widget injects a hidden textarea named
+    // g-recaptcha-response once checked. If it's missing or empty,
+    // stop here instead of firing a request Netlify will just reject.
+    const recaptchaField = form.querySelector('[name="g-recaptcha-response"]');
+    if (recaptchaField && !recaptchaField.value) {
+      if (status) {
+        status.textContent = "Please complete the CAPTCHA before sending.";
+        status.classList.add("is-error");
+      }
+      return;
+    }
+
     const data = Object.fromEntries(new FormData(form).entries());
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
