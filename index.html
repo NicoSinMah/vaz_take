@@ -9,6 +9,7 @@
     />
     <title>nick_vaz | Backend Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/jpeg" href="images/blue%20rose.jpg" />
   </head>
   <body>
     <header class="site-header">
@@ -211,10 +212,26 @@
           <p class="eyebrow">Contact</p>
           <h2>Connect with nick_vaz</h2>
         </div>
-        <form class="contact-form" action="mailto:nicovalmu2003@gmail.com" method="post" enctype="text/plain">
-          <label>
+        <form
+          class="contact-form"
+          id="contactForm"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="visually-hidden">
+            <label>
+              Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" />
+            </label>
+          </p>
+          <label class="field-typewriter">
             Name
-            <input type="text" name="name" autocomplete="name" required />
+            <span class="field-typewriter-layer">
+              <input type="text" name="name" id="nameField" autocomplete="name" required />
+              <span class="typewriter-ghost" id="nameGhost" aria-hidden="true"></span>
+            </span>
           </label>
           <label>
             Email
@@ -229,11 +246,15 @@
             <textarea name="message" rows="5" required></textarea>
           </label>
           <button class="button primary" type="submit">Send message</button>
+          <p class="contact-status" id="contactStatus" aria-live="polite"></p>
         </form>
       </section>
     </main>
     <footer class="site-footer">
-      <span>Copyright 2026 nick_vaz. All rights reserved.</span>
+      <span>
+        Copyright 2026 nick_vaz. All rights reserved. ·
+        <a href="https://github.com/NicoSinMah/vaz_take/blob/main/LICENSE" target="_blank" rel="noreferrer">License</a>
+      </span>
       <span>Miau</span>
     </footer>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>

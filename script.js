@@ -273,10 +273,151 @@ window.activityFeed = {
   },
 };
 
+// ---------------------------------------------------------------
+// NAME FIELD TYPEWRITER — cycles example names in a ghost layer
+// above the real (empty) placeholder. "John" stays static; only the
+// last name changes. Typing stops and the ghost hides the moment
+// the user focuses the field, so it never fights with real input.
+// ---------------------------------------------------------------
+const TYPEWRITER_PREFIX = "John ";
+const TYPEWRITER_NAMES = ["Sekiro...", "Nightrein...", "Genshin...", "Silksong...", "Minecraft..."];
+
+function setupNameTypewriter() {
+  const input = document.getElementById("nameField");
+  const ghost = document.getElementById("nameGhost");
+  if (!input || !ghost) return;
+
+  const TYPE_MS = 70;
+  const DELETE_MS = 40;
+  const HOLD_MS = 1400;
+  const GAP_MS = 300;
+
+  let nameIndex = 0;
+  let timer = null;
+  let paused = false;
+
+  function schedule(fn, delay) {
+    timer = setTimeout(fn, delay);
+  }
+
+  function typeName() {
+    if (paused) return;
+    const full = TYPEWRITER_PREFIX + TYPEWRITER_NAMES[nameIndex];
+    let i = TYPEWRITER_PREFIX.length; // prefix is always shown instantly
+
+    ghost.textContent = TYPEWRITER_PREFIX;
+
+    function step() {
+      if (paused) return;
+      if (i < full.length) {
+        ghost.textContent = full.slice(0, i + 1);
+        i += 1;
+        schedule(step, TYPE_MS);
+      } else {
+        schedule(deleteName, HOLD_MS);
+      }
+    }
+    schedule(step, TYPE_MS);
+  }
+
+  function deleteName() {
+    if (paused) return;
+    const full = TYPEWRITER_PREFIX + TYPEWRITER_NAMES[nameIndex];
+    let i = full.length;
+
+    function step() {
+      if (paused) return;
+      if (i > TYPEWRITER_PREFIX.length) {
+        i -= 1;
+        ghost.textContent = full.slice(0, i);
+        schedule(step, DELETE_MS);
+      } else {
+        nameIndex = (nameIndex + 1) % TYPEWRITER_NAMES.length;
+        schedule(typeName, GAP_MS);
+      }
+    }
+    schedule(step, DELETE_MS);
+  }
+
+  function pause() {
+    paused = true;
+    clearTimeout(timer);
+    ghost.classList.add("is-hidden");
+  }
+
+  function resume() {
+    if (input.value) return; // real text takes priority, ghost stays hidden
+    paused = false;
+    ghost.classList.remove("is-hidden");
+    typeName();
+  }
+
+  input.addEventListener("focus", pause);
+  input.addEventListener("input", () => {
+    if (input.value) pause();
+  });
+  input.addEventListener("blur", resume);
+
+  typeName();
+}
+
+// ---------------------------------------------------------------
+// CONTACT FORM — submits to Netlify Forms via fetch so the page
+// doesn't reload / bounce out to a mailto client. Requires the form
+// to carry data-netlify="true" and a matching hidden form-name
+// field (see index.html); Netlify's build bot needs that static
+// HTML to register the form, this JS only handles the submission.
+// ---------------------------------------------------------------
+function setupContactForm() {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("contactStatus");
+  if (!form) return;
+
+  function encodeFormData(data) {
+    return Object.keys(data)
+      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+      .join("&");
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeFormData(data),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Netlify form submission failed: ${res.status}`);
+        form.reset();
+        if (status) {
+          status.textContent = "Message sent — thanks for reaching out!";
+          status.classList.remove("is-error");
+        }
+      })
+      .catch((err) => {
+        console.error("[contact form]", err);
+        if (status) {
+          status.textContent = "Something went wrong — try again or email me directly.";
+          status.classList.add("is-error");
+        }
+      })
+      .finally(() => {
+        if (submitBtn) submitBtn.disabled = false;
+      });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderTracks();
   setupInfoPanels();
   renderActivityPanel();
+  setupNameTypewriter();
+  setupContactForm();
 });
 // ---------------------------------------------------------------
 // SUPABASE CLIENT — powers the live activity cards (YouTube Music
