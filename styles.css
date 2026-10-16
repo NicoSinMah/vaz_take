@@ -668,6 +668,20 @@ a.track {
   opacity: 0.9;
 }
 
+.project-card {
+  cursor: pointer;
+}
+
+.project-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-title-link:hover,
+.project-title-link:focus-visible {
+  color: var(--accent, var(--cyan));
+}
+
 .project-card:hover {
   transform: translateY(-6px);
   border-color: var(--border-hover);
@@ -785,7 +799,6 @@ a.track {
   min-height: 250px;
   padding: 28px;
   border: 1px solid var(--border);
-  border-right: none;
   border-radius: 0;
   color: inherit;
   text-align: left;
@@ -797,8 +810,10 @@ a.track {
   transition: transform 220ms ease, border-color 220ms ease, grid-column 260ms ease;
 }
 
-.info-card:last-child {
-  border-right: 1px solid var(--border);
+/* Overlap neighbours by 1px so the shared divider is a single line,
+   while every card keeps all four borders (fixes the cut-off right edge on hover). */
+.info-card + .info-card {
+  margin-left: -1px;
 }
 
 .info-card:first-child {
@@ -812,11 +827,13 @@ a.track {
 }
 
 .info-card.is-active {
-  border-right: 1px solid var(--border);
+  margin-left: 0;
   border-radius: 10px;
 }
 
 .info-card:hover {
+  position: relative;
+  z-index: 1;
   transform: translateY(-6px);
   border-color: var(--border-hover);
 }
@@ -852,13 +869,22 @@ a.track {
   border-radius: 999px;
   color: var(--muted);
   font-size: 0.9rem;
-  transition: transform 220ms ease, color 180ms ease, border-color 180ms ease;
+  transition: transform 220ms ease, translate 180ms ease, color 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .info-card.is-active .info-toggle {
   transform: rotate(45deg);
   color: var(--accent, var(--cyan));
   border-color: var(--border-hover);
+}
+
+/* Same shine as the tag chips; works for both + and x (rotated) */
+.info-card .info-toggle:hover,
+.info-card.is-active .info-toggle:hover {
+  border-color: rgba(110, 231, 255, 0.42);
+  background: rgba(110, 231, 255, 0.08);
+  color: #d9f8ff;
+  translate: 0 -1px;
 }
 
 .info-teaser {
@@ -1165,6 +1191,10 @@ a.track {
 
   .info-panels::-webkit-scrollbar {
     display: none;
+  }
+
+  .info-card + .info-card {
+    margin-left: 0;
   }
 
   .info-card {

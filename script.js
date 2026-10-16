@@ -550,3 +550,15 @@ document.addEventListener('DOMContentLoaded', () => {
   watchPresenceRow('presence', 1, updateYtMusicUI);
   watchPresenceRow('discord_presence', 1, updateDiscordUI);
 });
+
+
+// Make the whole project card open its repository (the title link stays for keyboard/screen readers).
+document.querySelectorAll(".project-card").forEach((card) => {
+  const link = card.querySelector(".project-title-link");
+  if (!link) return;
+  card.addEventListener("click", (event) => {
+    if (event.target.closest("a")) return; // let the link handle its own click
+    if (String(window.getSelection()).length) return; // don't hijack text selection
+    window.open(link.href, "_blank", "noopener");
+  });
+});
